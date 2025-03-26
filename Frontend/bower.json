@@ -15,7 +15,7 @@
     "google",
     "twitter"
   ],
-  "license": "Creative TIM License",
+  "license": "Akash Kobal License",
   "ignore": [
     "**/.*",
     "node_modules",

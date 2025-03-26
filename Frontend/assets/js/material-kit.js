@@ -4,10 +4,10 @@
 * Material Kit 3 - v3.1.0
 =========================================================
 
-* Product Page: https://www.creative-tim.com/product/soft-ui-design-system
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
+* Product Page: https://github.com/AkashKobal//product/soft-ui-design-system
+* Copyright 2021 Akash Kobal (https://github.com/AkashKobal/)
 
-* Coded by Creative Tim
+* Coded by Akash Kobal
 
 =========================================================
 
