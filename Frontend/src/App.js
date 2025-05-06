@@ -115,7 +115,7 @@ function App() {
             {getRole() === "ADMIN" ? <ManageFaculty /> : <Navigate to="/profile" replace />}
           </PrivateRoute>
         } />
-        <Route path="/faculty/updateFaculty/:id" element={
+        <Route path="/faculty/updateFaculty/:facultyId" element={
           <PrivateRoute>
             {getRole() === "ADMIN" ? <UpdateFaculty /> : <Navigate to="/profile" replace />}
           </PrivateRoute>

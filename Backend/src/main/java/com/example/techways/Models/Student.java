@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,49 +15,57 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "User")
-public class User implements UserDetails {
+@Table(name = "student")
+public class Student implements UserDetails {
+    // name, email, password, phone, gender, rollNumber, department, program, batch,
+    // role
 
     @Id
-    @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer userId;
-
+    private Integer id;
     private String name;
-
-    @Column(unique = true)
     private String email;
-
     private String password;
+    private String phone;
+    private String gender;
+    private String rollNumber;
+    private String department;
+    private String program;
+    private String batch;
     private String role;
 
     @Override
     public String getUsername() {
-        return email;
+        return email; // Assuming email is used as the username
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(() -> role);
+        return List.of(() -> role); // Assuming role is a single authority
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return true; // Default implementation
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return true; // Default implementation
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return true; // Default implementation
     }
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return true; // Default implementation
     }
 }

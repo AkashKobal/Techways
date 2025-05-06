@@ -12,8 +12,14 @@ const ManageStudents = () => {
 
     const getAllStudents = async () => {
         try {
-            const response = await axios.get("http://localhost:8080/students/viewAllStudents");
-            setStudents(response.data.studentsList);
+            const token = localStorage.getItem("token");
+            const response = await axios.get("http://localhost:8080/student/get-all", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            console.log(response.data);
+            setStudents(response.data.studentList); // Ensure key matches backend JSON
         } catch (error) {
             console.error("Failed to fetch students:", error);
         }
@@ -29,7 +35,21 @@ const ManageStudents = () => {
 
     const handleDelete = async (id) => {
         try {
-            const response = await axios.delete(`http://localhost:8080/students/deleteStudent/${id}`);
+            const token = localStorage.getItem("token");
+            if (!token) {
+                toast.error("Unauthorized: No token found");
+                return;
+            }
+    
+            const response = await axios.delete(
+                `http://localhost:8080/student/delete/${id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+    
             if (response.data.statusCode === 200) {
                 toast.success(response.data.message);
                 getAllStudents();
@@ -66,15 +86,15 @@ const ManageStudents = () => {
                 {students.map((student) => (
                     <tr key={student.id}>
                         <td>{student.id}</td>
-                        <td>{student.name}</td>
-                        <td>{student.email}</td>
-                        <td>{student.phone}</td>
-                        <td>{student.gender}</td>
-                        <td>{student.rollNumber}</td>
-                        <td>{student.department}</td>
-                        <td>{student.program}</td>
-                        <td>{student.batch}</td>
-                        <td>{student.role}</td>
+                        <td>{student.name || "No Name Provided"}</td>
+                        <td>{student.email || "No Email Provided"}</td>
+                        <td>{student.phone || "No Phone Provided"}</td>
+                        <td>{student.gender || "No Gender Provided"}</td>
+                        <td>{student.rollNumber || "No Roll Number Provided"}</td>
+                        <td>{student.department || "No Department Provided"}</td>
+                        <td>{student.program || "No Program Provided"}</td>
+                        <td>{student.batch || "No Batch Provided"}</td>
+                        <td>{student.role || "No Role Provided"}</td>
                         <td>
                             <button className="btn btn-outline-warning" onClick={() => handleEdit(student.id)}>Edit</button>&nbsp;
                             <button className="btn btn-outline-danger" onClick={() => handleDelete(student.id)}>Delete</button>
@@ -86,7 +106,6 @@ const ManageStudents = () => {
         
         <Footer />
     </>
-    
     );
 };
 

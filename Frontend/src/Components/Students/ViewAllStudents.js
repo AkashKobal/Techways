@@ -12,7 +12,7 @@ const ViewAllStudents = () => {
     const viewAllStudents = async () => {
         try {
             const token = localStorage.getItem("token");
-            const response = await axios.get("http://localhost:8080/faculty/viewAllFaculties", {
+            const response = await axios.get("http://localhost:8080/student/get-all", {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

@@ -11,3 +11,4 @@ import com.example.techways.Models.Faculty;
 public interface FacultyRepository extends JpaRepository<Faculty, Integer> { // <Entity, PRIMARY KEY TYPE>
     Optional<Faculty> findByEmail(String email);
 }
+

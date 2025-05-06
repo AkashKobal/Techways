@@ -1,31 +1,26 @@
 package com.example.techways.Service;
 
-import com.example.techways.DTO.FacultyDTO;
-import com.example.techways.DTO.RequestResponse;
-import com.example.techways.Models.Faculty;
-import com.example.techways.Models.Admin;
-import com.example.techways.Repository.FacultyRepository;
-import com.example.techways.Repository.AdminRepository;
-import com.example.techways.Service.JWTUtils;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import com.example.techways.DTO.FacultyDTO;
+import com.example.techways.DTO.RequestResponse;
+import com.example.techways.Models.Faculty;
+import com.example.techways.Repository.FacultyRepository;
 
 @Service
 public class FacultyService {
 
     @Autowired
     private FacultyRepository facultyRepository;
-
-    @Autowired
-    private AdminRepository adminRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -49,13 +44,13 @@ public class FacultyService {
             faculty.setDepartment(dto.getFacultyDepartment());
             faculty.setDesignation(dto.getFacultyDesignation());
 
-            // Set admin if needed (assuming adminId in DTO, you can modify this logic)
-            Optional<Admin> adminOpt = adminRepository.findById(1); // Static for now, change as needed
-            adminOpt.ifPresent(faculty::setAdmin);
-
             Faculty saved = facultyRepository.save(faculty);
-            response.setStatusCode(200);
-            response.setMessage("Faculty registered successfully");
+
+            if (saved.getFacultyId() > 0) {
+                response.setFaculty(saved);
+                response.setStatusCode(200);
+                response.setMessage("Faculty registered successfully");
+            }
         } catch (Exception e) {
             response.setStatusCode(500);
             response.setMessage("Failed to register faculty: " + e.getMessage());
@@ -78,7 +73,7 @@ public class FacultyService {
             response.setExpirationTime("24Hrs");
             response.setRole(faculty.getRole());
             response.setMessage("Faculty login successful");
-        } catch (Exception e) {
+        } catch (AuthenticationException e) {
             response.setStatusCode(401);
             response.setMessage("Login failed: " + e.getMessage());
         }

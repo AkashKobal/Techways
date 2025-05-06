@@ -1,13 +1,13 @@
 package com.example.techways.Service;
 
 import java.util.HashMap;
-import java.util.Optional;
-
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -71,7 +71,7 @@ public class NewUsersManagementService {
             response.setExpirationTime("24Hrs");
             response.setMessage("Successfully Logged In");
 
-        } catch (Exception e) {
+        } catch (AuthenticationException e) {
             response.setStatusCode(500);
             response.setMessage(e.getMessage());
         }

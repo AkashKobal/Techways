@@ -11,7 +11,7 @@ const ViewAllFaculty = () => {
     const viewAllFaculty = async () => {
         try {
             const token = localStorage.getItem("token");
-            const response = await axios.get("http://localhost:8080/faculty/viewAllFaculties", {
+            const response = await axios.get("http://localhost:8080/faculty/get-all", {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -34,15 +34,15 @@ const ViewAllFaculty = () => {
             <div className="view-all-faculty">
                 <h1>View All Faculty</h1>
                 <div className="notifications-cards">
-                    {faculty.map((faculty) => (
-                        <div className="notification" key={faculty.facultyId}>
+                    {faculty.map((facultyMember) => (
+                        <div className="notification" key={facultyMember.facultyId}>
                             <div className="notiglow"></div>
                             <div className="notiborderglow"></div>
-                            <div className="notititle">{faculty.facultyName}</div>
-                            <div className="notibody">Designation: {faculty.facultyDesignation}</div>
-                            <div className="notibody">Department: {faculty.facultyDepartment}</div>
-                            <div className="notibody">Email: {faculty.facultyEmail}</div>
-                            <div className="notibody">Phone No: {faculty.facultyPhone}</div>
+                            <div className="notititle">{facultyMember.name}</div>
+                            <div className="notibody">Designation: {facultyMember.designation}</div>
+                            <div className="notibody">Department: {facultyMember.department}</div>
+                            <div className="notibody">Email: {facultyMember.email}</div>
+                            <div className="notibody">Phone No: {facultyMember.phone}</div>
                         </div>
                     ))}
                 </div>

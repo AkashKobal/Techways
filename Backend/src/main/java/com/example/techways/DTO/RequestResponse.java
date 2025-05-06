@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.techways.Models.NewUsers;
 import com.example.techways.Models.Faculty;
+import com.example.techways.Models.Student;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -32,5 +33,8 @@ public class RequestResponse {
 
     private Faculty faculty;
     private List<Faculty> facultyList;
+
+    private Student student;
+    private List<Student> studentList;
 
 }

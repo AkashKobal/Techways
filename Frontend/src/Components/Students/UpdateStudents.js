@@ -27,8 +27,22 @@ const UpdateStudents = () => {
     useEffect(() => {
         const fetchStudent = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/students/getStudentsById/${id}`);
-                const student = response?.data?.students;
+                const token = localStorage.getItem("token");
+                if (!token) {
+                    toast.error("Unauthorized: No token found");
+                    return;
+                }
+
+                const response = await axios.get(
+                    `http://localhost:8080/student/get/${id}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
+                );
+
+                const student = response?.data?.student;
 
                 setName(student.name);
                 setEmail(student.email);
@@ -52,10 +66,20 @@ const UpdateStudents = () => {
     const handleUpdateStudents = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.put(`http://localhost:8080/students/updateStudent/${id}`, {
-                id,
-                name, email, password, phone, gender, rollNumber, department, program, batch, role
-            });
+            const token = localStorage.getItem("token");
+            const response = await axios.put(
+                `http://localhost:8080/student/update/${id}`,
+                {
+                    id,
+                    name, email, password, phone, gender,
+                    rollNumber, department, program, batch, role
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
 
             if (response.data.statusCode === 200) {
                 toast.success(response.data.message);

@@ -18,7 +18,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "Faculty")
+@Table(name = "faculty")
 public class Faculty implements UserDetails {
 
     @Id
@@ -34,9 +34,9 @@ public class Faculty implements UserDetails {
     private String department;
     private String designation;
 
-    @ManyToOne
-    @JoinColumn(name = "admin_id", referencedColumnName = "admin_id")
-    private Admin admin;
+    // @ManyToOne
+    // @JoinColumn(name = "admin_id", referencedColumnName = "admin_id")
+    // private Admin admin;
 
     @Override
     public String getUsername() {

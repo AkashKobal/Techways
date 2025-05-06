@@ -20,6 +20,7 @@ import com.example.techways.Service.NewUsersManagementService;
 public class NewUsersController {
     @Autowired
     private NewUsersManagementService usersManagementService;
+    
 
     @PostMapping("/auth/register")
     public ResponseEntity<RequestResponse> registerUser(@RequestBody RequestResponse reg) {
