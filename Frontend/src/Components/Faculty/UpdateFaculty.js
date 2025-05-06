@@ -23,23 +23,23 @@ const UpdateFaculty = () => {
         const fetchFaculty = async () => {
             try {
                 const token = localStorage.getItem("token");
-                const response = await axios.get(`http://localhost:8080/faculty/${facultyId}`, {
+                const response = await axios.get(`http://localhost:8080/faculty/get/${facultyId}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
-
-                const faculty = response.data;
-                setFacultyName(faculty.facultyName);
-                setFacultyEmail(faculty.facultyEmail);
-                setFacultyPhone(faculty.facultyPhone);
-                setFacultyGender(faculty.facultyGender);
-                setFacultyDepartment(faculty.facultyDepartment);
-                setFacultyDesignation(faculty.facultyDesignation);
-                setFacultyRole(faculty.facultyRole);
+    
+                const faculty = response.data.faculty;
+                setFacultyName(faculty.name);
+                setFacultyEmail(faculty.email);
+                setFacultyPhone(faculty.phone);
+                setFacultyGender(faculty.gender || ""); // fallback to "" if gender is not returned
+                setFacultyDepartment(faculty.department);
+                setFacultyDesignation(faculty.designation);
+                setFacultyRole(faculty.role);
             } catch (error) {
                 toast.error("Failed to fetch faculty details");
             }
         };
-
+    
         fetchFaculty();
     }, [facultyId]);
 
@@ -106,7 +106,7 @@ const UpdateFaculty = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Password (Leave blank to keep unchanged)</label>
+                        <label>Password</label>
                         <input
                             type="password"
                             value={facultyPassword}
