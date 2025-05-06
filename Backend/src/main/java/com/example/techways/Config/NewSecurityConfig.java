@@ -37,7 +37,7 @@ public class NewSecurityConfig {
                         .requestMatchers("/student/**", "/student/get/**").hasAnyAuthority("ADMIN")
                         .requestMatchers("/faculty/**", "/faculty/delete/**","/faculty/update/**").hasAnyAuthority("ADMIN")
                         .requestMatchers("/cf/**").permitAll()
-                        .requestMatchers("/course/**").hasAnyAuthority("ADMIN", "FACULTY")
+                        .requestMatchers("/course/**").permitAll()
                         .requestMatchers("/user/**").hasAnyAuthority("ADMIN", "USER", "STUDENT", "FACULTY")
                         .requestMatchers("/profile", "/student/viewResult", "/login")
                         .hasAnyAuthority("ADMIN", "USER", "STUDENT", "FACULTY")
