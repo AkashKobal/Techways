@@ -1,42 +1,47 @@
 package com.example.techways.Controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.example.techways.Models.Course;
+import com.example.techways.DTO.CourseDTO;
+import com.example.techways.DTO.RequestResponse;
 import com.example.techways.Service.CourseService;
 
 @RestController
 @RequestMapping("/course")
+@CrossOrigin("*")
 public class CourseController {
+
     @Autowired
     private CourseService courseService;
 
+    // Create a new course
     @PostMapping("/add")
-    public Course postCourse(@RequestBody Course course) {
-        return courseService.addCourse(course);
+    public RequestResponse addCourse(@RequestBody CourseDTO courseDTO) {
+        return courseService.addCourse(courseDTO);
     }
 
-    @GetMapping("/getAllCourses")
-    public List<Course> getAllCoursesController() {
-        return courseService.getAllCoursesService();
+    // Get all courses
+    @GetMapping("/all")
+    public RequestResponse getAllCourses() {
+        return courseService.getAllCourses();
     }
 
-    @GetMapping("/fetchUsingName")
-    public Course fetchUsingNameController() {
-        return courseService.fetchUsingName();
+    // Get course by ID
+    @GetMapping("/{id}")
+    public RequestResponse getCourseById(@PathVariable Integer id) {
+        return courseService.getCourseById(id);
     }
 
-    @GetMapping("/fetchUsingCredit/{courseCredits}")
-    public Course fetchUsingCreditController(@PathVariable int courseCredits) {
-        return courseService.fetchUsingCredit(courseCredits);
+    // Update course
+    @PutMapping("/update/{id}")
+    public RequestResponse updateCourse(@PathVariable Integer id, @RequestBody CourseDTO courseDTO) {
+        return courseService.updateCourse(id, courseDTO);
     }
 
+    // Delete course
+    @DeleteMapping("/delete/{id}")
+    public RequestResponse deleteCourse(@PathVariable Integer id) {
+        return courseService.deleteCourse(id);
+    }
 }

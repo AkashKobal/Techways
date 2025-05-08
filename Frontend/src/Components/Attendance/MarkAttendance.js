@@ -4,28 +4,31 @@ import Header from '../Header'
 import Footer from '../Footer'
 import '../../assets/css/markAttendance.css'
 import Select from 'react-select'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import axios from 'axios'
 
 const MarkAttendance = () => {
-    const [branchOptionsPicked, setBranchOptionsPicked] = useState("");
-    const [sectionOptionsPicked, setSectionOptionsPicked] = useState("");
-    const [subjectOptionsPicked, setSubjectOptionsPicked] = useState("");
+    const [branchOptionsPicked, setBranchOptionsPicked] = useState(null)
+    const [sectionOptionsPicked, setSectionOptionsPicked] = useState(null)
+    const [subjectOptionsPicked, setSubjectOptionsPicked] = useState(null)
+    const [dateOptionsPicked, setDateOptionsPicked] = useState("")
+    const [students, setStudents] = useState([])
+
     const branchOptions = [
-        { value: 'CSE', label: 'CSE' },
-        { value: 'IT', label: 'IT' },
-        { value: 'ECE', label: 'ECE' },
-        { value: 'MECH', label: 'MECH' },
-        { value: 'CIVIL', label: 'CIVIL' },
-        { value: 'EEE', label: 'EEE' }
-    ];
+        { value: 'CSD', label: 'CSD' }
+    ]
 
     const sectionOptions = [
-        { value: '8CSE01', label: '8CSE01' },
-        { value: '8CSE02', label: '8CSE02' },
-        { value: '8CSE03', label: '8CSE03' },
-        { value: '8CSE04', label: '8CSE04' }
+        { value: '', label: '' },
+        { value: '8CSD01', label: '8CSD01' },
+        { value: '8CSD2', label: '8CSD02' },
+        { value: '8CSD3', label: '8CSD03' },
+        { value: '8CSD04', label: '8CSD04' }
     ]
 
     const subjectOptions = [
+        { value: '', label: '' },
         { value: 'DSA', label: 'DSA' },
         { value: 'DBMS', label: 'DBMS' },
         { value: 'OS', label: 'OS' },
@@ -52,153 +55,86 @@ const MarkAttendance = () => {
             },
         }),
     }
+
+    const handleSearch = async (e) => {
+        e.preventDefault()
+
+        if (!branchOptionsPicked || !sectionOptionsPicked || !subjectOptionsPicked === "") {
+            toast.warning("Please select all fields!")
+            return
+        }
+
+        const url = `http://localhost:8080/attendance/markAttendance/${branchOptionsPicked.value}/${sectionOptionsPicked.value}/${subjectOptionsPicked.value}`
+        try {
+            const response = await axios.get(url)
+            if (response.status === 200) {
+                if (response.data.length === 0) {
+                    toast.warning("No students found!")
+                } else {
+
+                    toast.success("Students fetched successfully!")
+                    setStudents(response.data)
+                }
+            }
+        } catch (error) {
+            toast.error("Failed to fetch students!")
+            console.error(error)
+        }
+    }
+
     return (
         <>
             <SideBar />
+            <ToastContainer />
             <Header />
             <div className="mark-attendance-container">
-                <h1>MarkAttendance</h1>
+                <h1>Mark Attendance</h1>
                 <div className="select-container">
-                    <Select options={branchOptions} styles={customStyles} onChange={(option) => setBranchOptionsPicked(option)} />
-                    <Select options={sectionOptions} styles={customStyles} onChange={(option) => setSectionOptionsPicked(option)} />
-                    <Select options={subjectOptions} styles={customStyles} onChange={(option) => setSubjectOptionsPicked(option)} />
-                    <button >Search</button>
+                    <Select placeholder="Select Branch" options={branchOptions} styles={customStyles} onChange={(option) => setBranchOptionsPicked(option)} />
+                    <Select placeholder="Select Section" options={sectionOptions} styles={customStyles} onChange={(option) => setSectionOptionsPicked(option)} />
+                    <Select placeholder="Select Subject" options={subjectOptions} styles={customStyles} onChange={(option) => setSubjectOptionsPicked(option)} />
+                    <button onClick={handleSearch}>Search</button>
                 </div>
-                <p className='selected-labels'>Mark Attendance for Branch: {branchOptionsPicked?.label} | Section: {sectionOptionsPicked?.label} | Subject: {subjectOptionsPicked?.label}  <button>Save</button></p>
+
+                <p className="selected-labels">
+                    Mark Attendance for Branch: {branchOptionsPicked?.label} |
+                    Section: {sectionOptionsPicked?.label} |
+                    Subject: {subjectOptionsPicked?.label} |
+                    <input
+                        className="attendanceDatePicker"
+                        type="date"
+                        onChange={(e) => setDateOptionsPicked(e.target.value)}
+                    />
+                    <button>Save</button>
+                </p>
+
                 <div className="attendance-container">
-                    <div className="card">
-                        <div className="container">
-                            <div className="right">
-                                <div className="text-wrap">
-                                    <p className="text-content">
-                                        <a className="text-link" href="/">Akash Kobal</a>
-                                    </p>
-                                    <p className="time">20211CSD0116</p>
-                                </div>
-                                <div className="button-wrap">
-                                    <button className="primary-cta">View Profile</button>
-                                    <button className="secondary-cta">Mark as present</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="card">
-                        <div className="container">
-                            <div className="right">
-                                <div className="text-wrap">
-                                    <p className="text-content">
-                                        <a className="text-link" href="#">Akash Kobal</a>
-                                    </p>
-                                    <p className="time">20211CSD0116</p>
-                                </div>
-                                <div className="button-wrap">
-                                    <button className="primary-cta">View Profile</button>
-                                    <button className="secondary-cta">Mark as present</button>
+                    {students.map((student) => (
+                        <label key={student.attendanceId} className="card-wrapper">
+                            <input
+                                type="checkbox"
+                                className="attendance-checkbox"
+                                name={`student-${student.attendanceId}`}
+                            />
+                            <div className="card">
+                                <div className="container">
+                                    <div className="right">
+                                        <div className="text-wrap">
+                                            <p className="text-content">
+                                                <a className="text-link" href="/">{student.name}</a>
+                                            </p>
+                                            <p className="time">{student.rollNumber}</p>
+                                        </div>
+                                        <div className="button-wrap">
+                                            <button className="primary-cta">View Profile</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div className="card">
-                        <div className="container">
-                            <div className="right">
-                                <div className="text-wrap">
-                                    <p className="text-content">
-                                        <a className="text-link" href="#">Akash Kobal</a>
-                                    </p>
-                                    <p className="time">20211CSD0116</p>
-                                </div>
-                                <div className="button-wrap">
-                                    <button className="primary-cta">View Profile</button>
-                                    <button className="secondary-cta">Mark as present</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="card">
-                        <div className="container">
-                            <div className="right">
-                                <div className="text-wrap">
-                                    <p className="text-content">
-                                        <a className="text-link" href="#">Akash Kobal</a>
-                                    </p>
-                                    <p className="time">20211CSD0116</p>
-                                </div>
-                                <div className="button-wrap">
-                                    <button className="primary-cta">View Profile</button>
-                                    <button className="secondary-cta">Mark as present</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="card">
-                        <div className="container">
-                            <div className="right">
-                                <div className="text-wrap">
-                                    <p className="text-content">
-                                        <a className="text-link" href="#">Jane Doe</a> invited you to edit the
-                                        <a className="text-link" href="#">Web Design</a> file.
-                                    </p>
-                                    <p className="time">2 hours ago</p>
-                                </div>
-                                <div className="button-wrap">
-                                    <button className="primary-cta">View Profile</button>
-                                    <button className="secondary-cta">Mark as present</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="card">
-                        <div className="container">
-                            <div className="right">
-                                <div className="text-wrap">
-                                    <p className="text-content">
-                                        <a className="text-link" href="#">Jane Doe</a> invited you to edit the
-                                        <a className="text-link" href="#">Web Design</a> file.
-                                    </p>
-                                    <p className="time">2 hours ago</p>
-                                </div>
-                                <div className="button-wrap">
-                                    <button className="primary-cta">View Profile</button>
-                                    <button className="secondary-cta">Mark as present</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="card">
-                        <div className="container">
-                            <div className="right">
-                                <div className="text-wrap">
-                                    <p className="text-content">
-                                        <a className="text-link" href="#">Jane Doe</a> invited you to edit the
-                                        <a className="text-link" href="#">Web Design</a> file.
-                                    </p>
-                                    <p className="time">2 hours ago</p>
-                                </div>
-                                <div className="button-wrap">
-                                    <button className="primary-cta">View Profile</button>
-                                    <button className="secondary-cta">Mark as present</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="card">
-                        <div className="container">
-                            <div className="right">
-                                <div className="text-wrap">
-                                    <p className="text-content">
-                                        <a className="text-link" href="#">Jane Doe</a> invited you to edit the
-                                        <a className="text-link" href="#">Web Design</a> file.
-                                    </p>
-                                    <p className="time">2 hours ago</p>
-                                </div>
-                                <div className="button-wrap">
-                                    <button className="primary-cta">View Profile</button>
-                                    <button className="secondary-cta">Mark as present</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        </label>
+                    ))}
                 </div>
+
             </div>
             <Footer />
         </>

@@ -14,7 +14,7 @@
 
 .mark-attendance-container .card {
     width: 350px;
-    background-color: #f2f3f7;
+    background-color: #fd0404c0;
     border-radius: 0.75em;
     cursor: pointer;
     transition: ease 0.2s;
@@ -55,13 +55,13 @@
 
 .mark-attendance-container .time {
     font-size: 0.875em;
-    color: #777;
+    color: rgba(0, 0, 0, 0.767);
 }
 
 .mark-attendance-container .text-link {
     font-weight: 500;
     text-decoration: none;
-    color: black;
+    color: rgba(0, 0, 0, 0.781);
 }
 
 .mark-attendance-container .button-wrap {
@@ -76,7 +76,7 @@
     border: none;
     font-size: 15px;
     font-weight: 400;
-    color: #666;
+    color: white;
     cursor: pointer;
 }
 
@@ -183,3 +183,91 @@
 .mark-attendance-container .select-container{
     padding: 1.9em;
 }
+
+
+.attendanceDatePicker{
+    border-radius: 5px;
+    padding: 0.5em;
+    border: 1px solid #ccc;
+
+}
+
+.mark-attendance-container .card {
+    width: 350px;
+    background-color: #ff4d50be; /* Bright red */
+    color: white;
+    border-radius: 0.75em;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 2px solid #ff4d50be;
+    position: relative;
+}
+
+.mark-attendance-container .card:hover {
+    background-color: #10b981; /* Green */
+    color: #fff;
+    border: 2px solid #0f9c6e;
+}
+
+/* Optional: Label that appears only on hover */
+.mark-attendance-container .card::after {
+    content: "✔ Present";
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background-color: #065f46;
+    color: #fff;
+    font-size: 0.8rem;
+    padding: 2px 8px;
+    border-radius: 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.mark-attendance-container .card:hover::after {
+    opacity: 1;
+}
+
+
+/* Hide checkbox but keep it clickable */
+.attendance-checkbox {
+    display: none;
+}
+
+/* Base card styling */
+.card-wrapper {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.card-wrapper .card {
+    background-color: #ff4d50be; /* red - absent */
+    color: white;
+    border-radius: 0.75em;
+    transition: all 0.3s ease;
+    border: 2px solid #ff4d50be;
+    position: relative;
+    width: 350px;
+}
+
+/* Change to green when checked */
+.attendance-checkbox:checked + .card {
+    background-color: #10b981; /* green - present */
+    border-color: #0f9c6e;
+}
+
+/* Optional "Present" badge */
+.attendance-checkbox:checked + .card::after {
+    content: "✔ Present";
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background-color: #065f46;
+    color: #fff;
+    font-size: 0.8rem;
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+

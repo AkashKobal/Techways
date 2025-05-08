@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { jwtDecode } from 'jwt-decode';
 import "../../assets/css/authentication.css";
+import { toast } from "react-toastify";
 
 
 
@@ -11,28 +12,20 @@ function Register() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
+    const [role, setRole] = useState('STUDENT') // default role is student
     const navigate = useNavigate();
+
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/auth/login', { email, password });
+            const response = await axios.post('http://localhost:8080/auth/register', { name, email, password,role});
             console.log(response);
-
-            if (response.data.token) {
-                localStorage.setItem('token', response.data.token);
-
-                // Decode token properly
-                const decoded = jwtDecode(response.data.token);
-                console.log('Decoded Token:', decoded);
-                if (decoded.roles) {
-                    localStorage.setItem('role', decoded.roles[0].authority);
-                }
-
-                console.log('Saved token:', localStorage.getItem('token'));
-                navigate('/profile');
+            if(response.data.statusCode === 200){
+                toast.success("Registration successful");
             }
+
         } catch (error) {
             if (error.response && error.response.status === 401) {
                 setError('Invalid email or password. Please try again.');

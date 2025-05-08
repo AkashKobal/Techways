@@ -3,6 +3,7 @@ package com.example.techways.DTO;
 import java.util.List;
 
 import com.example.techways.Models.NewUsers;
+import com.example.techways.Models.Course;
 import com.example.techways.Models.Faculty;
 import com.example.techways.Models.Student;
 
@@ -36,5 +37,9 @@ public class RequestResponse {
 
     private Student student;
     private List<Student> studentList;
+
+    private Course course;
+    private List<Course> courseList;
+
 
 }

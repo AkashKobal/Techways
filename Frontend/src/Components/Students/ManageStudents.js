@@ -65,7 +65,6 @@ const ManageStudents = () => {
         <SideBar />
         <Header />
         <ToastContainer />
-    
         <table className="table-primary">
             <thead>
                 <tr>
