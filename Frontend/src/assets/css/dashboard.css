@@ -1,0 +1,150 @@
+.dashboard-container {
+    margin-left: 15.4rem;
+    padding: 2rem;
+    background-color: #f5f7fb;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.heading h2 {
+    color: #1e293b;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+/* ===== Cards Section ===== */
+.cards-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.card {
+    flex: 1 1 250px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+.card-label {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.card-value {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+/* ===== Charts and Table Section ===== */
+.chats-tables-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+/* Shared styles for pie, bar, table */
+.col-lg-6 {
+    flex: 1 1 450px;
+    /* background: #fff; */
+    border-radius: 12px;
+    padding: 1.5rem;
+    /* box-shadow: 0 8px 16px rgba(0, 0, 0, 0.04); */
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 1rem;
+}
+
+/* ===== Recent Users Table ===== */
+.recent-users .card {
+    padding: 1.5rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+    font-size: 14px;
+}
+
+.table th,
+.table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+    color: #374151;
+    white-space: nowrap;
+}
+
+.table th {
+    background-color: #eff6ff;
+    font-weight: 600;
+    color: #1e3a8a;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f5f9;
+}
+
+/* ===== List Group (for statistics) ===== */
+.list-group {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-group li {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #374151;
+    font-size: 15px;
+}
+
+.list-group li span {
+    background: #6366f1;
+    color: #fff;
+    font-size: 13px;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+}
+
+/* ===== Media Queries ===== */
+@media (max-width: 768px) {
+
+    .cards-wrapper,
+    .chats-tables-wrapper {
+        flex-direction: column;
+    }
+
+    .card {
+        width: 100%;
+    }
+
+    .col-lg-6 {
+        flex: 1 1 100%;
+    }
+}

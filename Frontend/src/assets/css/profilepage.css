@@ -1,0 +1,113 @@
+.profile-wrapper{
+    margin-left: 15.4rem;
+}
+.profile-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 2rem;
+    background: #f3f6fa;
+    min-height: 98vh;
+}
+
+
+.avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+.role {
+    font-size: 1rem;
+    color: #555;
+    margin: 0.5rem 0;
+}
+
+.address {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 1rem;
+}
+
+.button-group {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.primary-btn {
+    background-color: #3498db;
+    color: #fff;
+    padding: 0.5rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.outline-btn {
+    background: none;
+    border: 1.5px solid #3498db;
+    color: #3498db;
+    padding: 0.5rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.profile-right {
+    flex: 2;
+    min-width: 300px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 2rem;
+}
+
+.info-grid div {
+    background: #f8fafc;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.info-grid span {
+    font-weight: 600;
+    color: #2c3e50;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.edit-link {
+    margin-top: 2rem;
+    text-align: right;
+}
+
+.edit-link a {
+    text-decoration: none;
+    color: #fff;
+    background-color: #16a085;
+    padding: 0.5rem 1.5rem;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.edit-link a:hover {
+    background-color: #138d75;
+}
+
+.loading {
+    text-align: center;
+    padding: 3rem;
+    font-size: 1.2rem;
+    color: #888;
+}
+

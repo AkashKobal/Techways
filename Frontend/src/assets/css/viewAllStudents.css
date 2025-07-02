@@ -1,0 +1,202 @@
+.view-students-container {
+    margin-left: 15.4rem;
+    padding: 20px;
+    background-color: #ffffff;
+    min-height: 100vh;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.filters select,
+.search-input {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    min-width: 160px;
+    background-color: #fff;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+}
+
+.search-input {
+    flex: 1;
+    min-width: 200px;
+}
+
+.export-btn {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.export-btn:hover {
+    background-color: #0056b3;
+}
+
+.dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.35);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(2px);
+}
+
+.student-dialog {
+    background: #ffffff;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 480px;
+    padding: 32px 28px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.student-dialog h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 18px;
+    color: #1f2937;
+    /* Gray-800 */
+    text-align: center;
+}
+
+.student-dialog p {
+    font-size: 15px;
+    color: #4b5563;
+    /* Gray-700 */
+    margin: 10px 0;
+    line-height: 1.5;
+    border-bottom: 1px dashed #e5e7eb;
+    padding-bottom: 8px;
+}
+
+.student-dialog p:last-of-type {
+    border-bottom: none;
+}
+
+.student-dialog button {
+    margin-top: 24px;
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    font-size: 15px;
+    font-weight: 500;
+    background-color: #ef4444;
+    /* Tailwind Red-500 */
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.student-dialog button:hover {
+    background-color: #dc2626;
+    /* Red-600 */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* view all students card  */
+
+.student-card-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    padding: 24px;
+}
+
+.student-card {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    padding: 20px;
+    transition: box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.student-card:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+}
+
+.student-card h3 {
+    font-size: 18px;
+    color: #1f2937;
+    /* Darker text */
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.student-card p {
+    font-size: 14px;
+    color: #6b7280;
+    /* Gray-600 */
+    margin-bottom: 12px;
+}
+
+.student-card button {
+    background: none;
+    border: none;
+    color: #4f46e5;
+    /* Indigo-600 */
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0;
+    /* text-decoration: ; */
+    transition: color 0.2s ease;
+}
+
+.student-card button:hover {
+    color: #4338ca;
+    /* Indigo-700 */
+    text-decoration: underline;
+}
+
+
+
+
+
+
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .student-dialog {
+        width: 95%;
+    }
+}
