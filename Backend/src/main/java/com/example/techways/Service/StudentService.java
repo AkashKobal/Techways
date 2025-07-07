@@ -69,7 +69,9 @@ public class StudentService {
                 existingStudent.setReligion(updateStudent.getReligion());
                 existingStudent.setNationality(updateStudent.getNationality());
                 existingStudent.setUpdatedAt(LocalDateTime.now());
-
+                if (updateStudent.getProfileImageUrl() != null && !updateStudent.getProfileImageUrl().isEmpty()) {
+                    existingStudent.setProfileImageUrl(updateStudent.getProfileImageUrl());
+                }
                 Student savedStudent = studentRepository.save(existingStudent);
                 response.setStudent(savedStudent);
                 response.setStatusCode(200);

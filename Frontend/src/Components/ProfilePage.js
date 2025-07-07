@@ -4,6 +4,7 @@ import SideBar from './SideBar';
 import Header from './Header';
 import Footer from './Footer';
 import "../../src/assets/css/profilepage.css";
+import VerifyEmail from './Auth/VerifyEmail';
 
 const ProfilePage = () => {
   const [profileInfo, setProfileInfo] = useState(null);
@@ -66,10 +67,11 @@ const ProfilePage = () => {
       <div className="profile-wrapper">
         <div className="profile-right">
           <div className="info-grid">
-            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Avatar" className="avatar" />
+            <img src={profileInfo.profileImageUrl || "https://img.icons8.com/?size=100&id=z-JBA_KtSkxG&format=png&color=000000"} alt="Avatar" className="avatar" />
             <div><span>Full Name:</span> {profileInfo.name}</div>
             <div><span>Email:</span> {profileInfo.email}</div>
             <div><span>Role:</span> {role}</div>
+            <div><span>Verified:</span> {profileInfo.verified ? "Yes" : "No"}</div>
 
             {role === "STUDENT" && (
               <>

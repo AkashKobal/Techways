@@ -33,14 +33,13 @@ public class NewSecurityConfig {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/auth/**", "/public/**", "/attendance/**", "/attendance/markAttendance/**").permitAll()
-                        .requestMatchers("/student/get-my-info").hasAnyAuthority("ADMIN", "USER", "STUDENT", "FACULTY") // 👈 move this UP
-                        .requestMatchers("/student/**", "/student/get/**").hasAnyAuthority("ADMIN")
-                        .requestMatchers("/faculty/**", "/faculty/delete/**", "/faculty/update/**").hasAnyAuthority("ADMIN")
+                        .requestMatchers("/auth/**", "/public/**", "/attendance/**", "/attendance/markAttendance/**","/cloudinary/**").permitAll()
+                        .requestMatchers("/student/get-my-info").hasAnyAuthority("ADMIN", "USER", "STUDENT")
+                        .requestMatchers("/student/**", "/student/get/**","/course/**").hasAnyAuthority("ADMIN")
                         .requestMatchers("/cf/**", "/course/**").permitAll()
-                        .requestMatchers("/user/**").hasAnyAuthority("ADMIN", "USER", "STUDENT", "FACULTY")
-                        .requestMatchers("/profile", "/student/viewResult", "/login")
-                        .hasAnyAuthority("ADMIN", "USER", "STUDENT", "FACULTY")
+                        .requestMatchers("/user/**").hasAnyAuthority("ADMIN", "USER", "STUDENT")
+                        .requestMatchers("/profile", "/login")
+                        .hasAnyAuthority("ADMIN", "USER", "STUDENT")
                         .requestMatchers("/auth/get-my-info").authenticated()
                         .anyRequest().authenticated())
 

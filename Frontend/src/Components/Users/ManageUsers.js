@@ -229,7 +229,7 @@ const ManageUsers = () => {
 
 
     const exportToExcel = () => {
-        const filteredSortedUsers = currentUsers; // or whatever you display in the table
+        const filteredSortedUsers = filteredUsers; // or whatever you display in the table
 
         const worksheetData = filteredSortedUsers.map(user => ({
             ID: user.id,

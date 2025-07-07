@@ -5,6 +5,7 @@ import Footer from '../Footer';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
+import '../../assets/css/addCourse.css';
 
 const UpdateCourse = () => {
     const { id } = useParams();
@@ -52,7 +53,9 @@ const UpdateCourse = () => {
                 }
             });
             toast.success("Course updated successfully");
-            navigate('/course/manageCourse');
+            setInterval(() => {
+                navigate('/course/manageCourse');
+            }, 1000);
         } catch (error) {
             toast.error("Failed to update course");
         }
@@ -68,32 +71,34 @@ const UpdateCourse = () => {
             <Header />
             <ToastContainer />
             <div className="add-course-container">
-                <h2 className="form-title">Update Course</h2>
-                <form className="course-form-grid" onSubmit={handleUpdate}>
-                    <div className="form-group">
-                        <label>Course Name</label>
-                        <input type="text" value={course.name} onChange={(e) => setCourse({ ...course, name: e.target.value })} required />
-                    </div>
-                    <div className="form-group">
-                        <label>Course Code</label>
-                        <input type="text" value={course.code} onChange={(e) => setCourse({ ...course, code: e.target.value })} required />
-                    </div>
-                    <div className="form-group">
-                        <label>Course Description</label>
-                        <textarea value={course.description} onChange={(e) => setCourse({ ...course, description: e.target.value })} required />
-                    </div>
-                    <div className="form-group">
-                        <label>Course Duration (in hours)</label>
-                        <input type="number" value={course.duration} onChange={(e) => setCourse({ ...course, duration: e.target.value })} required />
-                    </div>
-                    <div className="form-group">
-                        <label>Course Credits</label>
-                        <input type="number" value={course.credits} onChange={(e) => setCourse({ ...course, credits: e.target.value })} required />
-                    </div>
-                    <div className="form-group full-width">
-                        <button type="submit" className="submit-btn">Update Course</button>
-                    </div>
-                </form>
+                <div className="add-course-card">
+                    <h2 className="form-title">Update Course</h2>
+                    <form className="course-form-grid" onSubmit={handleUpdate}>
+                        <div className="form-group">
+                            <label>Course Name</label>
+                            <input type="text" value={course.name} onChange={(e) => setCourse({ ...course, name: e.target.value })} required />
+                        </div>
+                        <div className="form-group">
+                            <label>Course Code</label>
+                            <input type="text" value={course.code} onChange={(e) => setCourse({ ...course, code: e.target.value })} required />
+                        </div>
+                        <div className="form-group">
+                            <label>Course Description</label>
+                            <textarea value={course.description} onChange={(e) => setCourse({ ...course, description: e.target.value })} required />
+                        </div>
+                        <div className="form-group">
+                            <label>Course Duration (in hours)</label>
+                            <input type="number" value={course.duration} onChange={(e) => setCourse({ ...course, duration: e.target.value })} required />
+                        </div>
+                        <div className="form-group">
+                            <label>Course Credits</label>
+                            <input type="number" value={course.credits} onChange={(e) => setCourse({ ...course, credits: e.target.value })} required />
+                        </div>
+                        <div className="form-group full-width">
+                            <button type="submit" className="submit-btn">Update Course</button>
+                        </div>
+                    </form>
+                </div>
             </div>
             <Footer />
         </>

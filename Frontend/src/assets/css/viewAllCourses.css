@@ -1,0 +1,82 @@
+.main-content {
+    margin-left: 15.4rem;
+    padding: 40px 32px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 32px;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+    padding: 28px 24px;
+    transition: all 0.3s ease-in-out;
+    border: 1px solid #e5e7eb;
+    height: fit-content;
+    display: flex;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top right, rgba(99, 102, 241, 0.08), rgba(255, 255, 255, 0));
+    z-index: 0;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+}
+
+.text-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.text-content {
+    font-size: 20px;
+    font-weight: 600;
+    color: #111827;
+    /* neutral-900 */
+    margin: 0;
+}
+
+.time {
+    font-size: 15px;
+    color: #6b7280;
+    /* gray-600 */
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Subtle card hover effect */
+.card:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.06);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+        padding: 24px;
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 24px 20px;
+    }
+
+    .text-content {
+        font-size: 18px;
+    }
+
+    .time {
+        font-size: 14px;
+    }
+}

@@ -11,6 +11,7 @@ import UpdateStudentModal from "./UpdateStudentModal";
 import DeleteStudentDialog from "./DeleteStudentDialog";
 import "../../assets/css/manageUsers.css";
 
+
 const ManageStudents = () => {
     const [students, setStudents] = useState([]);
     const [editingStudent, setEditingStudent] = useState(null);
@@ -88,12 +89,41 @@ const ManageStudents = () => {
         setShowEditModal(true);
     };
 
-    const handleUpdateStudent = async () => {
+    const handleUpdateStudent = async (imageFile) => {
         try {
             const token = localStorage.getItem("token");
-            const response = await axios.put(`http://localhost:8080/student/update/${editingStudent.id}`, editingStudent, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
+
+            let imageUrl = editingStudent.profileImageUrl || null;
+
+            if (imageFile) {
+                const formData = new FormData();
+                formData.append("image", imageFile);
+
+                const uploadRes = await fetch("http://localhost:8080/cloudinary/upload", {
+                    method: "POST",
+                    body: formData,
+                });
+
+                const uploadData = await uploadRes.json();
+                if (uploadData.secure_url) {
+                    imageUrl = uploadData.secure_url;
+                } else {
+                    toast.error("Image upload failed");
+                    return;
+                }
+            }
+
+            const payload = {
+                ...editingStudent,
+                profileImageUrl: imageUrl,
+            };
+
+            const response = await axios.put(
+                `http://localhost:8080/student/update/${editingStudent.id}`,
+                payload,
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+
             if (response.data.statusCode === 200) {
                 toast.success("Student updated successfully");
                 setShowEditModal(false);
@@ -103,8 +133,10 @@ const ManageStudents = () => {
             }
         } catch (error) {
             toast.error("Error updating student");
+            console.error(error);
         }
     };
+
 
     const handleDeleteClick = (student) => {
         setSelectedStudent(student);
@@ -198,10 +230,8 @@ const ManageStudents = () => {
 
     const currentUsers = filteredUsers.slice((currentPage - 1) * usersPerPage, currentPage * usersPerPage);
 
-
-
     const exportToExcel = () => {
-        const filteredSortedUsers = currentUsers; // or whatever you display in the table
+        const filteredSortedUsers = filteredUsers; // or whatever you display in the table
 
         const worksheetData = filteredSortedUsers.map(user => ({
             ID: user.id,
@@ -229,7 +259,7 @@ const ManageStudents = () => {
             <ToastContainer />
             <div className="manage-user-container">
                 <div className="manage-user-header">
-                    <h1 className="manage-user-title">Manage Users</h1>
+                    <h1 className="manage-user-title">Manage Students</h1>
                 </div>
 
                 <div className="manage-user-filters">

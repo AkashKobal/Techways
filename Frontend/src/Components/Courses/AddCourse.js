@@ -55,33 +55,36 @@ const AddCourse = () => {
             <SideBar />
             <Header />
             <ToastContainer />
+
             <div className="add-course-container">
-                <h2 className="form-title">Add Course</h2>
-                <form className="course-form-grid" onSubmit={handleAddCourse}>
-                    <div className="form-group">
-                        <label>Course Name</label>
-                        <input type="text" placeholder="Enter course name" required onChange={(e) => setName(e.target.value)} />
-                    </div>
-                    <div className="form-group">
-                        <label>Course Code</label>
-                        <input type="text" placeholder="Enter course code" required onChange={(e) => setCode(e.target.value)} />
-                    </div>
-                    <div className="form-group">
-                        <label>Course Description</label>
-                        <textarea placeholder="Enter course description" required onChange={(e) => setDescription(e.target.value)} />
-                    </div>
-                    <div className="form-group">
-                        <label>Course Duration (in hours)</label>
-                        <input type="number" placeholder="Enter duration" required onChange={(e) => setDuration(e.target.value)} />
-                    </div>
-                    <div className="form-group">
-                        <label>Course Credits</label>
-                        <input type="number" placeholder="Enter credits" required onChange={(e) => setCredits(e.target.value)} />
-                    </div>
-                    <div className="form-group full-width">
-                        <button type="submit" className="submit-btn">Add Course</button>
-                    </div>
-                </form>
+                <div className="add-course-card">
+                    <h2 className="form-title">Add Course</h2>
+                    <form className="course-form-grid" onSubmit={handleAddCourse}>
+                        <div className="form-group">
+                            <label>Course Name</label>
+                            <input type="text" placeholder="Enter course name" required onChange={(e) => setName(e.target.value)} />
+                        </div>
+                        <div className="form-group">
+                            <label>Course Code</label>
+                            <input type="text" placeholder="Enter course code" required onChange={(e) => setCode(e.target.value)} />
+                        </div>
+                        <div className="form-group">
+                            <label>Course Duration (in hours)</label>
+                            <input type="number" placeholder="Enter duration" required onChange={(e) => setDuration(e.target.value)} />
+                        </div>
+                        <div className="form-group">
+                            <label>Course Credits</label>
+                            <input type="number" placeholder="Enter credits" required onChange={(e) => setCredits(e.target.value)} />
+                        </div>
+                        <div className="form-group">
+                            <label>Course Description</label>
+                            <textarea placeholder="Enter course description" required onChange={(e) => setDescription(e.target.value)} />
+                        </div>
+                        <div className="form-group full-width">
+                            <button type="submit" className="submit-btn">Add Course</button>
+                        </div>
+                    </form>
+                </div>
             </div>
             <Footer />
         </>

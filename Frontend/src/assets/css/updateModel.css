@@ -65,3 +65,33 @@
     background-color: #9ca3af;
     cursor: not-allowed;
 }
+
+.custom-file-upload {
+    display: inline-block;
+    position: relative;
+}
+
+.custom-file-upload input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload label {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #f0f4ff;
+    border: 2px dashed #4f46e5;
+    border-radius: 8px;
+    color: #4f46e5;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    font-size: 15px;
+}
+
+.custom-file-upload label:hover {
+    background-color: #e6efff;
+    border-color: #0056b3;
+    color: #0056b3;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}

@@ -3,8 +3,7 @@ import SideBar from '../SideBar';
 import Header from '../Header';
 import Footer from '../Footer';
 import axios from 'axios';
-import '../../assets/css/viewAllStudents.css';
-import '../../assets/css/style.css';
+import '../../assets/css/viewAllCourses.css'; 
 
 const ViewAllCourses = () => {
     const [courses, setCourses] = useState([]);

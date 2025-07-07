@@ -231,6 +231,7 @@ const ViewStudents = () => {
                 <div className="student-card-list">
                     {currentUsers.map((student) => (
                         <div className="student-card" key={student.id}>
+                            <img src={student.profileImageUrl || "https://img.icons8.com/?size=100&id=z-JBA_KtSkxG&format=png&color=000000"} alt="Avatar" className="student-avatar" />
                             <h3>{student.name}</h3>
                             <p>Roll: {student.rollNumber}</p>
                             <button onClick={() => handleViewProfile(student.id)}>View Profile</button>
@@ -243,6 +244,7 @@ const ViewStudents = () => {
                     <div className="dialog-overlay" onClick={() => setShowDialog(false)}>
                         <div className="student-dialog" onClick={(e) => e.stopPropagation()}>
                             <h2>{selectedStudent.name}'s Profile</h2>
+                            <img src={selectedStudent.profileImageUrl || "https://img.icons8.com/?size=100&id=z-JBA_KtSkxG&format=png&color=000000"} alt="Avatar" className="student-avatar" />
                             <p><strong>Email:</strong> {selectedStudent.email}</p>
                             <p><strong>Roll Number:</strong> {selectedStudent.rollNumber}</p>
                             <p><strong>Department:</strong> {selectedStudent.department}</p>
@@ -255,32 +257,32 @@ const ViewStudents = () => {
                     </div>
                 )}
                 <div className="pagination-container">
-                <button
-                    className="pagination-btn"
-                    onClick={() => goToPage(currentPage - 1)}
-                    disabled={currentPage === 1}
-                >
-                    Previous
-                </button>
-
-                {Array.from({ length: totalPages }, (_, index) => (
                     <button
-                        key={index + 1}
-                        className={`pagination-btn ${currentPage === index + 1 ? 'active' : ''}`}
-                        onClick={() => goToPage(index + 1)}
+                        className="pagination-btn"
+                        onClick={() => goToPage(currentPage - 1)}
+                        disabled={currentPage === 1}
                     >
-                        {index + 1}
+                        Previous
                     </button>
-                ))}
 
-                <button
-                    className="pagination-btn"
-                    onClick={() => goToPage(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                >
-                    Next
-                </button>
-            </div>
+                    {Array.from({ length: totalPages }, (_, index) => (
+                        <button
+                            key={index + 1}
+                            className={`pagination-btn ${currentPage === index + 1 ? 'active' : ''}`}
+                            onClick={() => goToPage(index + 1)}
+                        >
+                            {index + 1}
+                        </button>
+                    ))}
+
+                    <button
+                        className="pagination-btn"
+                        onClick={() => goToPage(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                    >
+                        Next
+                    </button>
+                </div>
             </div>
         </>
     );

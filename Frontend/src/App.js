@@ -9,30 +9,14 @@ import NotFound from './Pages/NotFound';
 import ProfilePage from './Components/ProfilePage';
 
 // Student Components
-import AddStudent from './Components/Students/AddStudent';
 import ViewAllStudents from './Components/Students/ViewAllStudents';
 import ManageStudents from './Components/Students/ManageStudents';
-import UpdateStudents from './Components/Students/UpdateStudents';
-
-// Faculty Components
-import AddFaculty from './Components/Faculty/AddFaculty';
-import ViewAllFaculty from './Components/Faculty/ViewAllFaculty';
-import ManageFaculty from './Components/Faculty/ManageFaculty';
-import UpdateFaculty from './Components/Faculty/UpdateFaculty';
 
 // Course Components
 import AddCourse from './Components/Courses/AddCourse';
 import ViewAllCourse from './Components/Courses/ViewAllCourse';
 import ManageCourse from './Components/Courses/ManageCourse';
 import UpdateCourse from './Components/Courses/UpdateCourse';
-
-// Attendance Components
-import MarkAttendance from './Components/Attendance/MarkAttendance';
-import AbsenteesReport from './Components/Attendance/AbsenteesReport';
-import ManageAttendance from './Components/Attendance/ManageAttendance';
-
-// Result Component
-import ViewResult from './Components/Result/ViewResult';
 
 // Route Protection
 import PrivateRoute from './Components/Auth/PrivateRoute';
@@ -42,6 +26,7 @@ import ManageUsers from './Components/Users/ManageUsers';
 import ForgotPassword from './Components/Auth/ForgotPassword';
 import VerifyEmail from './Components/Auth/VerifyEmail';
 import ChangePassword from './Components/Auth/ChangePassword';
+import ConsolidatedReport from './Components/Courses/ConsolidatedReport';
 
 function App() {
   const getRole = () => localStorage.getItem('role');
@@ -49,7 +34,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-      {/* test routes  */}
+        {/* test routes  */}
         {/* <Route path="/test" element={<TestDashboard/>} /> */}
 
         <Route path="/dashboard" element={<Dashboard />} />
@@ -68,39 +53,11 @@ function App() {
         <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
         <Route path="/profile" element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
 
-        {/* Student Routes */}
-        <Route path="/student/viewResult" element={
-          <PrivateRoute>
-            {getRole() === "STUDENT" ? <ViewResult /> : <Navigate to="/profile" replace />}
-          </PrivateRoute>
-        } />
 
-        {/* Faculty Routes */}
-        <Route path="/attendance/markAttendance" element={
-          <PrivateRoute>
-            {getRole() === "ADMIN" || getRole() === "FACULTY" ?  <MarkAttendance /> : <Navigate to="/profile" replace />}
-          </PrivateRoute>
-        } />
-        <Route path="/attendance/absenteesReport" element={
-          <PrivateRoute>
-            {getRole() ==="ADMIN" || getRole() === "FACULTY" ?  <AbsenteesReport /> : <Navigate to="/profile" replace />}
-          </PrivateRoute>
-        } />
-        <Route path="/attendance/manageAttendance" element={
-          <PrivateRoute>
-            {getRole() === "ADMIN" || getRole() === "FACULTY" ?  <ManageAttendance /> : <Navigate to="/profile" replace />}
-          </PrivateRoute>
-        } />
 
-        {/* Admin Routes */}
-        <Route path="/student/addStudent" element={
-          <PrivateRoute>
-            {getRole() === "ADMIN" || getRole() === "FACULTY" ? <AddStudent /> : <Navigate to="/profile" replace />}
-          </PrivateRoute>
-        } />
         <Route path="/student/viewAllStudents" element={
           <PrivateRoute>
-            {getRole() === "ADMIN" || getRole() === "FACULTY" ?  <ViewAllStudents /> : <Navigate to="/profile" replace />}
+            {getRole() === "ADMIN" || getRole() === "FACULTY" ? <ViewAllStudents /> : <Navigate to="/profile" replace />}
           </PrivateRoute>
         } />
         <Route path="/student/manageStudents" element={
@@ -108,38 +65,13 @@ function App() {
             {getRole() === "ADMIN" || getRole() === "FACULTY" ? <ManageStudents /> : <Navigate to="/profile" replace />}
           </PrivateRoute>
         } />
-        <Route path="/student/updateStudent/:id" element={
-          <PrivateRoute>
-            {getRole() === "ADMIN" || getRole() === "FACULTY" ?  <UpdateStudents /> : <Navigate to="/profile" replace />}
-          </PrivateRoute>
-        } />
 
-        {/* Faculty Management */}
-        <Route path="/faculty/addFaculty" element={
-          <PrivateRoute>
-            {getRole() === "ADMIN" ? <AddFaculty /> : <Navigate to="/profile" replace />}
-          </PrivateRoute>
-        } />
-        <Route path="/faculty/viewAllFaculty" element={
-          <PrivateRoute>
-            {getRole() === "ADMIN" ? <ViewAllFaculty /> : <Navigate to="/profile" replace />}
-          </PrivateRoute>
-        } />
-        <Route path="/faculty/manageFaculty" element={
-          <PrivateRoute>
-            {getRole() === "ADMIN" ? <ManageFaculty /> : <Navigate to="/profile" replace />}
-          </PrivateRoute>
-        } />
-        <Route path="/faculty/updateFaculty/:facultyId" element={
-          <PrivateRoute>
-            {getRole() === "ADMIN" ? <UpdateFaculty /> : <Navigate to="/profile" replace />}
-          </PrivateRoute>
-        } />
+
 
         {/* Course Management */}
         <Route path="/course/addCourse" element={
           <PrivateRoute>
-            {getRole() === "ADMIN" || getRole() === "FACULTY" ?  <AddCourse /> : <Navigate to="/profile" replace />}
+            {getRole() === "ADMIN" || getRole() === "FACULTY" ? <AddCourse /> : <Navigate to="/profile" replace />}
           </PrivateRoute>
         } />
         <Route path="/course/viewAllCourse" element={
@@ -157,6 +89,12 @@ function App() {
             {getRole() === "ADMIN" || getRole() === "FACULTY" ? <UpdateCourse /> : <Navigate to="/profile" replace />}
           </PrivateRoute>
         } />
+        <Route path="/course/report" element={
+          <PrivateRoute>
+            {getRole() === "ADMIN" || getRole() === "FACULTY" ? <ConsolidatedReport /> : <Navigate to="/profile" replace />}
+          </PrivateRoute>
+        } />
+
 
         {/* Fallback Route */}
         <Route path="*" element={<NotFound />} />

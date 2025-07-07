@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.example.techways.Models.NewUsers;
 import com.example.techways.Models.Course;
-import com.example.techways.Models.Faculty;
 import com.example.techways.Models.Student;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -49,6 +48,7 @@ public class RequestResponse {
     private String program;
     private String batch;
     private boolean status;
+    private String profileImageUrl;
 
     private String fatherName;
     private String motherName;
@@ -60,9 +60,6 @@ public class RequestResponse {
     // Entity lists
     private NewUsers users;
     private List<NewUsers> usersList;
-
-    private Faculty faculty;
-    private List<Faculty> facultyList;
 
     private Student student;
     private List<Student> studentList;

@@ -29,6 +29,7 @@ public class Student {
     private String department;
     private String program;
     private String batch;
+    private String profileImageUrl;
 
     @Column(name = "role")
     private String role;

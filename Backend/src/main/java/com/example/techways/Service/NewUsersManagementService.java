@@ -1,8 +1,6 @@
 package com.example.techways.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -42,6 +40,7 @@ public class NewUsersManagementService {
     @Transactional
     public RequestResponse registerUser(RequestResponse createRequest) {
         RequestResponse response = new RequestResponse();
+
         try {
             // 1. Check if user already exists in NewUsers
             if (newUsersRepository.findByEmail(createRequest.getEmail()).isPresent()) {
@@ -50,49 +49,58 @@ public class NewUsersManagementService {
                 return response;
             }
 
-            // 2. Check if student already exists
-            if (studentRepository.findByEmail(createRequest.getEmail()).isPresent()) {
-                response.setStatusCode(409);
-                response.setMessage("Student already exists");
-                return response;
+            // 2. Check role and validate existing entries
+            String role = createRequest.getRole();
+
+            if ("STUDENT".equalsIgnoreCase(role)) {
+                if (studentRepository.findByEmail(createRequest.getEmail()).isPresent()) {
+                    response.setStatusCode(409);
+                    response.setMessage("Student already exists");
+                    return response;
+                }
             }
 
-            // 3. Create user entry (NewUsers table)
+            // 3. Create user entry in NewUsers table
             NewUsers user = new NewUsers();
             user.setName(createRequest.getName());
             user.setEmail(createRequest.getEmail());
             user.setPassword(passwordEncoder.encode(createRequest.getPassword()));
-            user.setRole(createRequest.getRole());
+            user.setRole(role);
             user.setActive(true);
+
             NewUsers savedUser = newUsersRepository.save(user);
 
-            // 4. Create student entry (Student table)
-            Student student = new Student();
-            student.setName(createRequest.getName());
-            student.setEmail(createRequest.getEmail());
-            student.setRole(createRequest.getRole());
-            student.setActive(true);
-            student.setCreatedAt(LocalDateTime.now());
-
-            Student savedStudent = studentRepository.save(student);
-
-            // 5. Return response
             response.setUsers(savedUser);
-            response.setStudent(savedStudent);
-            response.setStatusCode(201); // Created
 
-            if (response.getRole() == "STUDENT") {
+            // 4. Save in respective role table
+            if ("STUDENT".equalsIgnoreCase(role)) {
+                Student student = new Student();
+                student.setName(createRequest.getName());
+                student.setEmail(createRequest.getEmail());
+                student.setRole(role);
+                student.setActive(true);
+                student.setCreatedAt(LocalDateTime.now());
+
+                Student savedStudent = studentRepository.save(student);
+                response.setStudent(savedStudent);
                 response.setMessage("Student registered successfully");
+            } else if ("ADMIN".equalsIgnoreCase(role)) {
+                response.setMessage("Admin user created successfully");
             } else {
-                response.setMessage("User registered successfully");
+                response.setMessage("User with unknown role created");
             }
+
+            response.setStatusCode(201);
+
         } catch (Exception e) {
             response.setStatusCode(500);
             response.setMessage("Internal Server Error");
             response.setError(e.getMessage());
         }
+
         return response;
     }
+
 
     public RequestResponse login(RequestResponse loginRequest) {
         RequestResponse response = new RequestResponse();

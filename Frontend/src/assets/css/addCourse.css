@@ -1,4 +1,112 @@
-.add-course-container{
-    margin-left: 15.8rem;
+.add-course-container {
+    margin-left: 15.4rem;
+    padding: 40px 20px;
+    background-color: #f9fafb;
+    min-height: calc(100vh - 100px);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
 
+.add-course-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    padding: 30px 40px;
+    max-width: 800px;
+    width: 100%;
+}
+
+.form-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #1f2937;
+    /* slate-800 */
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.course-form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #374151;
+    /* slate-700 */
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 12px 14px;
+    font-size: 14px;
+    border: 1px solid #d1d5db;
+    /* gray-300 */
+    border-radius: 8px;
+    background-color: #fff;
+    transition: 0.2s ease-in-out;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #6366f1;
+    /* indigo-500 */
+    box-shadow: 0 0 0 3px #e0e7ff;
+    outline: none;
+}
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.submit-btn {
+    padding: 12px 24px;
+    background-color: #6366f1;
+    /* Indigo */
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #4f46e5;
+}
+
+@media (max-width: 768px) {
+    .add-course-card {
+        padding: 20px;
+    }
+
+    .form-title {
+        font-size: 22px;
+    }
+
+    .full-width {
+        justify-content: center;
+    }
+
+    .submit-btn {
+        width: 100%;
+    }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../../assets/css/updateModel.css';
 
 const UpdateStudentModal = ({
@@ -8,14 +8,48 @@ const UpdateStudentModal = ({
     onClose,
     creating,
 }) => {
+    const [imageFile, setImageFile] = useState(null);
+
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        handleUpdateStudent(imageFile);
+    };
+
     return (
         <div className="modal-overlay">
             <div className="modal-container">
                 <h2 className="modal-title">Update Student</h2>
-                <form onSubmit={(e) => { e.preventDefault(); handleUpdateStudent(); }}>
-                    <input type="text" name="name" value={editingStudent.name} onChange={(e) => setEditingStudent({ ...editingStudent, name: e.target.value })} placeholder="Full Name" className="modal-input" required />
-                    <input type="email" name="email" value={editingStudent.email} onChange={(e) => setEditingStudent({ ...editingStudent, email: e.target.value })} placeholder="Email" className="modal-input" required />
-                    <input type="text" name="rollNumber" value={editingStudent.rollNumber} onChange={(e) => setEditingStudent({ ...editingStudent, rollNumber: e.target.value })} placeholder="Roll Number" className="modal-input" required />
+                <form onSubmit={onSubmit}>
+
+                    <input
+                        type="text"
+                        name="name"
+                        value={editingStudent.name}
+                        onChange={(e) => setEditingStudent({ ...editingStudent, name: e.target.value })}
+                        placeholder="Full Name"
+                        className="modal-input"
+                        required
+                    />
+                    <input
+                        type="email"
+                        name="email"
+                        value={editingStudent.email}
+                        onChange={(e) => setEditingStudent({ ...editingStudent, email: e.target.value })}
+                        placeholder="Email"
+                        className="modal-input"
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="rollNumber"
+                        value={editingStudent.rollNumber}
+                        onChange={(e) => setEditingStudent({ ...editingStudent, rollNumber: e.target.value })}
+                        placeholder="Roll Number"
+                        className="modal-input"
+                        required
+                    />
+
                     <select
                         name="department"
                         value={editingStudent.department}
@@ -51,13 +85,38 @@ const UpdateStudentModal = ({
                         <option value="MCA">MCA</option>
                         <option value="OTHER">Other</option>
                     </select>
-                    <input type="text" name="batch" value={editingStudent.batch} onChange={(e) => setEditingStudent({ ...editingStudent, batch: e.target.value })} placeholder="Batch" className="modal-input" required />
-                    <select name="gender" value={editingStudent.gender} onChange={(e) => setEditingStudent({ ...editingStudent, gender: e.target.value })} className="modal-input">
+
+                    <input
+                        type="text"
+                        name="batch"
+                        value={editingStudent.batch}
+                        onChange={(e) => setEditingStudent({ ...editingStudent, batch: e.target.value })}
+                        placeholder="Batch"
+                        className="modal-input"
+                        required
+                    />
+
+                    <select
+                        name="gender"
+                        value={editingStudent.gender}
+                        onChange={(e) => setEditingStudent({ ...editingStudent, gender: e.target.value })}
+                        className="modal-input"
+                    >
                         <option value="">Select Gender</option>
                         <option value="MALE">Male</option>
                         <option value="FEMALE">Female</option>
                         <option value="OTHER">Other</option>
                     </select>
+                    <div className="custom-file-upload">
+                        <label htmlFor="image-upload">Upload Image</label>
+                        <input
+                            id="image-upload"
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => setImageFile(e.target.files[0])}
+                        />
+                    </div>
+
                     <div className="modal-buttons">
                         <button type="button" className="cancel-btn" onClick={onClose}>Cancel</button>
                         <button type="submit" className="save-btn" disabled={creating}>

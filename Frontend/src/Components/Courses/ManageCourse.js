@@ -51,23 +51,46 @@ const ManageCourse = () => {
             <ToastContainer />
             <div className="manage-course-container">
                 <h2>Manage Courses</h2>
-                <div className="cards">
-                    {courses.map(course => (
-                        <div key={course.courseId} className="card">
-                            <div className="container">
-                                <div className="right">
-                                    <p><strong>{course.courseName}</strong> ({course.courseCode})</p>
-                                    <p>{course.courseDescription}</p>
-                                    <p>Duration: {course.courseDuration} hrs | Credits: {course.courseCredits}</p>
+                <table className="course-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Code</th>
+                            <th>Description</th>
+                            <th>Duration</th>
+                            <th>Credits</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {courses.map(course => (
+                            <tr key={course.courseId}>
+                                <td>{course.courseName}</td>
+                                <td>{course.courseCode}</td>
+                                <td>{course.courseDescription}</td>
+                                <td>{course.courseDuration} hrs</td>
+                                <td>{course.courseCredits}</td>
+                                <td>
                                     <div className="button-wrap">
-                                        <button className="primary-cta" onClick={() => navigate(`/course/updateCourse/${course.courseId}`)}>Edit</button>
-                                        <button className="secondary-cta" onClick={() => deleteCourse(course.courseId)}>Delete</button>
+                                        <button
+                                            className="primary-cta"
+                                            onClick={() => navigate(`/course/updateCourse/${course.courseId}`)}
+                                        >
+                                            Edit
+                                        </button>
+                                        <button
+                                            className="secondary-cta"
+                                            onClick={() => deleteCourse(course.courseId)}
+                                        >
+                                            Delete
+                                        </button>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+
             </div>
             <Footer />
         </>

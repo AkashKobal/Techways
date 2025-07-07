@@ -208,57 +208,6 @@ const Dashboard = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-6">
-                        <div className="card shadow animated-card">
-                            <div className="card-body">
-                                <h5 className="card-title mb-2">Active vs Verified</h5>
-                                <ResponsiveContainer width="100%" height={300}>
-                                    <AreaChart data={areaChartData}>
-                                        <XAxis dataKey="label" />
-                                        <YAxis />
-                                        <Tooltip />
-                                        <Area type="monotone" dataKey="Active" stackId="1" stroke="#34d399" fill="#a7f3d0" />
-                                        <Area type="monotone" dataKey="Verified" stackId="1" stroke="#6366f1" fill="#c7d2fe" />
-                                    </AreaChart>
-                                </ResponsiveContainer>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-6">
-                        <div className="card shadow animated-card">
-                            <div className="card-body">
-                                <h5 className="card-title mb-2">Role Distribution</h5>
-                                <ResponsiveContainer width="100%" height={300}>
-                                    <RadarChart outerRadius={90} data={radarChartData}>
-                                        <PolarGrid />
-                                        <PolarAngleAxis dataKey="role" />
-                                        <PolarRadiusAxis />
-                                        <Radar dataKey="value" stroke="#6366f1" fill="#6366f1" fillOpacity={0.6} />
-                                        <Tooltip />
-                                    </RadarChart>
-                                </ResponsiveContainer>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-6">
-                        <div className="card shadow animated-card">
-                            <div className="card-body">
-                                <h5 className="card-title mb-2">Composed User Chart</h5>
-                                <ResponsiveContainer width="100%" height={300}>
-                                    <ComposedChart data={composedChartData}>
-                                        <XAxis dataKey="role" />
-                                        <YAxis />
-                                        <Tooltip />
-                                        <Legend />
-                                        <CartesianGrid stroke="#f5f5f5" />
-                                        <Area type="monotone" dataKey="verified" fill="#c7d2fe" stroke="#6366f1" />
-                                        <Bar dataKey="active" barSize={20} fill="#34d399" />
-                                        <Line type="monotone" dataKey="verified" stroke="#6366f1" />
-                                    </ComposedChart>
-                                </ResponsiveContainer>
-                            </div>
-                        </div>
-                    </div>
 
                     <div className="col-lg-6">
                         <div className="card shadow animated-card">
