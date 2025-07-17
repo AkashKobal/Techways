@@ -33,7 +33,7 @@ public class NewSecurityConfig {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/auth/**", "/public/**", "/attendance/**", "/attendance/markAttendance/**","/cloudinary/**").permitAll()
+                        .requestMatchers("/error","/auth/**", "/public/**", "/attendance/**", "/attendance/markAttendance/**","/cloudinary/**").permitAll()
                         .requestMatchers("/student/get-my-info").hasAnyAuthority("ADMIN", "USER", "STUDENT")
                         .requestMatchers("/student/**", "/student/get/**","/course/**").hasAnyAuthority("ADMIN")
                         .requestMatchers("/cf/**", "/course/**").permitAll()

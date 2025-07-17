@@ -227,7 +227,7 @@ const SideBar = () => {
                             )}
                             {isAuthenticated() && (
                                 <li className="sidebar-item">
-                                    <a href="/" className="sidebar-link">Change Password</a>
+                                    <a href="/auth/change-password" className="sidebar-link">Change Password</a>
                                 </li>
                             )}
 
